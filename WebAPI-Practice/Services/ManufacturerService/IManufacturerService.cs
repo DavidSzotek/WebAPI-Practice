@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI_Practice.DTOs.Manufacturer;
 using WebAPI_Practice.Models;
 
 namespace WebAPI_Practice.Services.ManufacturerService
 {
     public interface IManufacturerService
     {
-        public Task<ActionResult<Manufacturer>> GetManufacturerById(int id);
+        public Task<ManufacturerResponse> GetManufacturerById(int id);
 
-        public Task<ActionResult<List<Manufacturer>>> GetAllManufacturers();
+        public Task<List<ManufacturerResponse>> GetAllManufacturers();
+
+        public Task CreateManufacturer(ManufacturerRequest request);
+
+        public Task UpdateManufacturer(int id, ManufacturerRequest request);
+
+        public Task DeleteManufacturerById(int id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI_Practice.DTOs.Manufacturer;
 using WebAPI_Practice.Models;
 using WebAPI_Practice.Services.ManufacturerService;
 
@@ -17,10 +18,10 @@ namespace WebAPI_Practice.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Manufacturer>> GetManufacturerById(int id)
+        public async Task<ActionResult<Manufacturer>> GetManufacturerById([FromRoute] int id)
         {
             var manufacturer = await _manufacturerService.GetManufacturerById(id);
-            if (manufacturer.Value == null)
+            if (manufacturer == null)
             {
                 return NotFound();
             }
@@ -32,6 +33,31 @@ namespace WebAPI_Practice.Controllers
         {
             var manufacturers = await _manufacturerService.GetAllManufacturers();
             return Ok(manufacturers);
+        }
+
+        [HttpPost()]
+        public async Task<ActionResult> CreateManufacturer([FromBody] ManufacturerRequest request)
+        {
+            await _manufacturerService.CreateManufacturer(request);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateManufacturer([FromRoute]int id, [FromBody]ManufacturerRequest request)
+        {
+            if(request == null)
+            {
+                return NotFound();
+            }
+            await _manufacturerService.UpdateManufacturer(id, request);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteManufacturerById([FromRoute] int id)
+        {
+            await _manufacturerService.DeleteManufacturerById(id);
+            return Ok();
         }
     }
 }
