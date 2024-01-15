@@ -23,5 +23,7 @@ namespace WebAPI_Practice.Models
         public Manufacturer Manufacturer { get; set; } = null!;
 
         public List<Material> Materials { get; set; }
+
+        public List<Printer> Printers { get; set; }
     }
 }

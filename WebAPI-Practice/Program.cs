@@ -4,7 +4,7 @@ using WebAPI_Practice.Services.ManufacturerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Services
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
@@ -16,7 +16,7 @@ builder.Services.AddDbContext < DataContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP request pipeline
 
 app.UseHttpsRedirection();
 

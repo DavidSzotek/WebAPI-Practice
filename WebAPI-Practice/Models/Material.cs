@@ -32,5 +32,7 @@ namespace WebAPI_Practice.Models
         public Materialtype Materiatltype { get; set; } = null!;
 
         public List<Printertype> Printertypes { get; set; }
+
+        public List<Stock> Stocks { get; set; }
     }
 }
