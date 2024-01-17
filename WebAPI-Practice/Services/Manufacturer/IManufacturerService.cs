@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI_Practice.DTOs.Manufacturer;
+using WebAPI_Practice.DTOs.Manufacturers;
 using WebAPI_Practice.Models;
 
 namespace WebAPI_Practice.Services.ManufacturerService

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI_Practice.DTOs.Manufacturer;
+using WebAPI_Practice.DTOs.Manufacturers;
 using WebAPI_Practice.Models;
 using WebAPI_Practice.Services.ManufacturerService;
 
@@ -43,7 +43,7 @@ namespace WebAPI_Practice.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateManufacturer([FromRoute]int id, [FromBody]ManufacturerRequest request)
+        public async Task<ActionResult> UpdateManufacturer([FromRoute]int id, [FromBody] ManufacturerRequest request)
         {
             if(request == null)
             {
