@@ -23,7 +23,8 @@ namespace WebAPI_Practice.Services.ManufacturerService
             {
                 Name = x.Name,
                 Email = x.Email,
-                PhoneNumber = x.PhoneNumber
+                PhoneNumber = x.PhoneNumber,
+                ManufacturerImageUri = x.ManufacturerImageUri
             }).FirstOrDefaultAsync();
 
             return manufacturer;
@@ -35,7 +36,8 @@ namespace WebAPI_Practice.Services.ManufacturerService
             {
                 Name = x.Name,
                 Email = x.Email,
-                PhoneNumber = x.PhoneNumber
+                PhoneNumber = x.PhoneNumber,
+                ManufacturerImageUri = x.ManufacturerImageUri
             }).ToListAsync();
 
             return manufacturers;

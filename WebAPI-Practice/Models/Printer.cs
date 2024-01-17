@@ -20,6 +20,9 @@ namespace WebAPI_Practice.Models
 
         public string PropertyType { get; set; }
 
+        [Url]
+        public string? PrinterImageUri { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Room { get; set; } = null!;
@@ -38,5 +41,7 @@ namespace WebAPI_Practice.Models
         public int PrintertypeId { get; set; }
         [Required]
         public Printertype Printertype { get; set; }
+
+        public List<Printerfile> Printerfiles { get; set; }
     }
 }

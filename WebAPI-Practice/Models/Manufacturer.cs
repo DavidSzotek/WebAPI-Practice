@@ -20,6 +20,9 @@ namespace WebAPI_Practice.Models
         [Phone]
         public string? PhoneNumber { get; set; }
 
+        [Url]
+        public string? ManufacturerImageUri { get; set; }
+
         public List<Printertype> Printertypes { get; set; }
     }
 }

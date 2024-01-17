@@ -10,5 +10,7 @@ namespace WebAPI_Practice.DTOs.Manufacturers
         public string? Email { get; set; }
 
         public string? PhoneNumber { get; set; }
+
+        public string? ManufacturerImageUri { get; set; }
     }
 }

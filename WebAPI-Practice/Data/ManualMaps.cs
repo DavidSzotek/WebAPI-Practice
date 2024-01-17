@@ -21,6 +21,7 @@ namespace WebAPI_Practice.Data
                 Name = manufacturer.Name,
                 Email = manufacturer.Email,
                 PhoneNumber = manufacturer.PhoneNumber,
+                ManufacturerImageUri = manufacturer.ManufacturerImageUri
             };
         }
     }
