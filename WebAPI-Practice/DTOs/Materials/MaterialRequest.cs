@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAPI_Practice.Models;
 
-namespace WebAPI_Practice.Models
+namespace WebAPI_Practice.DTOs.Materials
 {
-    public class Material
+    public class MaterialRequest
     {
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string PartNumber { get; set; } = null!;
@@ -30,11 +29,5 @@ namespace WebAPI_Practice.Models
         [Required]
         public int MaterialtypeId { get; set; }
 
-        [Required]
-        public Materialtype Materiatltype { get; set; } = null!;
-
-        public List<Printertype> Printertypes { get; set; }
-
-        public List<Stock> Stocks { get; set; }
     }
 }
