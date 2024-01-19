@@ -47,7 +47,7 @@ namespace WebAPI_Practice.Services.Office
                 Code = x.Code
             }).ToListAsync();
 
-            return offices;
+            return offices;          
         }
 
         public async Task<OfficeResponse> GetOfficeById(int id)

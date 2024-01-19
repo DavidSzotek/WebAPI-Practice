@@ -20,6 +20,9 @@ namespace WebAPI_Practice.DTOs.Materials
         public bool IsAlternative { get; set; }
 
         [Required]
+        public bool IsAvailable { get; set; }
+
+        [Required]
         public int Capacity { get; set; }
 
         public double Price { get; set; }

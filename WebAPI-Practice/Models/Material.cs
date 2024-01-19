@@ -21,6 +21,9 @@ namespace WebAPI_Practice.Models
         public bool IsAlternative { get; set; }
 
         [Required]
+        public bool IsAvailable { get; set; }
+
+        [Required]
         public int Capacity { get; set; }
 
         public double Price { get; set; }
