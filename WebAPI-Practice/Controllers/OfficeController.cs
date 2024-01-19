@@ -42,7 +42,7 @@ namespace WebAPI_Practice.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateOffice([FromRoute] int id, [FromBody] OfficeRequest request)
         {
             if(request == null)
@@ -53,7 +53,7 @@ namespace WebAPI_Practice.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteOfficeById(int id)
         {
             await _officeService.DeleteOfficeById(id);
