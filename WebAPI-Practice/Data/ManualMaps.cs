@@ -36,7 +36,7 @@ namespace WebAPI_Practice.Data
             };
         }
 
-        public static OfficeResponse GetOfficetypeResponseFromDto(this Office office)
+        public static OfficeResponse GetOfficeResponseFromDto(this Office office)
         {
             return new OfficeResponse()
             {
