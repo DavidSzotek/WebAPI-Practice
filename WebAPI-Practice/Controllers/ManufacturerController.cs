@@ -28,7 +28,7 @@ namespace WebAPI_Practice.Controllers
             return Ok(manufacturer);
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<List<Manufacturer>>> GetAllManufacturers()
         {
             var manufacturers = await _manufacturerService.GetAllManufacturers();
@@ -47,7 +47,7 @@ namespace WebAPI_Practice.Controllers
         {
             if(request == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             await _manufacturerService.UpdateManufacturer(id, request);
             return Ok();

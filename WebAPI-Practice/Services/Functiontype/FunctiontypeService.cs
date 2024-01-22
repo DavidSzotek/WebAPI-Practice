@@ -54,11 +54,11 @@ namespace WebAPI_Practice.Services.Functiontype
 
         public async Task UpdateFunctiontype(int id, FunctiontypeRequest request)
         {
-            var manufacturer = await _context.Manufacturers.FindAsync(id);
+            var functiontype = await _context.Functiontypes.FindAsync(id);
 
-            manufacturer.Name = request.Name;
+            functiontype.Name = request.Name;
 
-            _context.Manufacturers.Update(manufacturer);
+            _context.Functiontypes.Update(functiontype);
             await _context.SaveChangesAsync();
         }
     }

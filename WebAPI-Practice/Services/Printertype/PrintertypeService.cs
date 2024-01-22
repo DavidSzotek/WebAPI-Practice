@@ -24,7 +24,7 @@ namespace WebAPI_Practice.Services.Printertype
                 IsA3 = request.IsA3,
                 IsColor = request.IsColor,
                 ManufacturerId = request.ManufacturerId,
-                FunctiontypeId = request.FunctiontypeId,
+                FunctiontypeId = request.FunctiontypeId
             };
 
             _context.Printertypes.Add(newPrintertype);
