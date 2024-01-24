@@ -6,7 +6,7 @@ namespace WebAPI_Practice.Services.Printer
     {       
         public Task<PrinterResponse> GetPrinterById(int id);
 
-        public Task<List<PrinterResponse>> GetAllPrinters();
+        public Task<List<PrinterJoinedResponse>> GetAllPrinters();
 
         public Task CreatePrinter(PrinterRequest request);
 

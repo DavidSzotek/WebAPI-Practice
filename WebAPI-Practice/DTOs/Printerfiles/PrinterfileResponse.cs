@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAPI_Practice.DTOs.Printers;
 using WebAPI_Practice.Models;
 
 namespace WebAPI_Practice.DTOs.Printerfiles
@@ -10,7 +11,5 @@ namespace WebAPI_Practice.DTOs.Printerfiles
         public string FileName { get; set; } = null!;
 
         public string FileUri { get; set; } = null!;
-
-        public Printer Printer { get; set; } = null!;
     }
 }

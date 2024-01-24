@@ -17,7 +17,7 @@ namespace WebAPI_Practice.DTOs.Printers
 
         public double Price { get; set; }
 
-        public string? PropertyType { get; set; }
+        public string? PropertyType { get; set; } = null!;
 
         [Url]
         public string? PrinterImageUri { get; set; }

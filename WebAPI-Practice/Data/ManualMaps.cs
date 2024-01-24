@@ -3,6 +3,9 @@ using WebAPI_Practice.DTOs.Manufacturers;
 using WebAPI_Practice.DTOs.Materials;
 using WebAPI_Practice.DTOs.Materialtypes;
 using WebAPI_Practice.DTOs.Offices;
+using WebAPI_Practice.DTOs.Printers;
+using WebAPI_Practice.DTOs.Printerstatuses;
+using WebAPI_Practice.DTOs.Printertypes;
 using WebAPI_Practice.Models;
 
 namespace WebAPI_Practice.Data
@@ -13,7 +16,7 @@ namespace WebAPI_Practice.Data
         {
             return new FunctiontypeResponse()
             {
-                Name = functiontype.Name,
+                    Name = functiontype.Name
             };
         }
 
@@ -62,5 +65,61 @@ namespace WebAPI_Practice.Data
                 Materialtype = material.Materiatltype.GetMaterialtypeResponseFromDto()
             };
         }
+
+        public static PrinterJoinedResponse GetPrinterResponseResponseFromDto(this Printer printer)
+        {
+            return new PrinterJoinedResponse()
+            {
+            };
+        }
+
+        public static PrinterstatusResponse GetPrinterstatusResponseFromDto(this Printerstatus printerstatus)
+        {
+            return new PrinterstatusResponse()
+            {
+                Name = printerstatus.Name,
+            };
+        }
+
+        public static PrintertypeResponse GetPrintertypeResponseFromDto(this Printertype printer)
+        {
+            return new PrintertypeResponse()
+            {
+                Id= printer.Id,
+                ModelName = printer.ModelName,
+                IsColor = printer.IsColor,
+                IsA3 = printer.IsA3,
+                Functiontype = printer.Functiontype.GetFunctiontypeResponseFromDto(),
+                Manufacturer = printer.Manufacturer.GetManufacturerResponseFromDto()
+            };
+        }
+
+        public static PrintertypeResponseForPrinter GetPrintertypeResponseForPrinterFromDto(this Printertype printer) => new PrintertypeResponseForPrinter()
+        {
+            Id = printer.Id,
+            ModelName = printer.ModelName,
+            IsColor = printer.IsColor,
+            IsA3 = printer.IsA3,
+            Functiontype = printer.Functiontype,
+            Manufacturer = printer.Manufacturer
+        };
+
+        /*TODO*/
+        public static ManufacturerResponse GetManufacturerResponseForPrinterFromDto(this Manufacturer manufacturer)
+        {
+            return new ManufacturerResponse()
+            {
+                Name = manufacturer.Name,
+            };
+        }
+
+        public static FunctiontypeResponse GetFunctiontypeResponseForPrinterFromDto(this Functiontype functiontype)
+        {
+            return new FunctiontypeResponse()
+            {
+                Name = functiontype.Name
+            };
+        }
+
     }
 }

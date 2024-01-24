@@ -60,7 +60,7 @@ namespace WebAPI_Practice.Services.Material
 
         public async Task<MaterialResponse> GetMaterialById(int id)
         {
-            var material = await _context.Materials.Select(x => new MaterialResponse()
+            var material = await _context.Materials.Where(x => x.Id == id).Select(x => new MaterialResponse()
             {
                 PartNumber = x.PartNumber,
                 Name = x.Name,

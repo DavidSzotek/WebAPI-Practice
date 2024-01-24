@@ -1,4 +1,5 @@
-﻿using WebAPI_Practice.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebAPI_Practice.Data;
 using WebAPI_Practice.DTOs.Printerstatuses;
 
 namespace WebAPI_Practice.Services.Printerstatus
@@ -12,29 +13,54 @@ namespace WebAPI_Practice.Services.Printerstatus
             _context = context;
         }
 
-        public Task CreatePrinterstatus(PrinterstatusRequest request)
+        public async Task CreatePrinterstatus(PrinterstatusRequest request)
         {
-            throw new NotImplementedException();
+            var newPrinterstatus = new Models.Printerstatus
+            {
+                Name = request.Name
+            };
+
+            _context.Printerstatuses.Add(newPrinterstatus);
+            await _context.SaveChangesAsync(); 
         }
 
-        public Task DeletePrinterstatusById(int id)
+        public async Task DeletePrinterstatusById(int id)
         {
-            throw new NotImplementedException();
+            var printerstatus = await _context.Printerstatuses.FindAsync(id);
+            _context.Printerstatuses.Remove(printerstatus);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<PrinterstatusResponse>> GetAllPrinterstatuses()
+        public async Task<List<PrinterstatusResponse>> GetAllPrinterstatuses()
         {
-            throw new NotImplementedException();
+            
+            var printerstatuses = await _context.Printerstatuses.Select(x => new PrinterstatusResponse()
+            {
+                Name = x.Name,
+            }).ToListAsync();
+
+            return printerstatuses;
+             
         }
 
-        public Task<PrinterstatusResponse> GetPrinterstatusById(int id)
+        public async Task<PrinterstatusResponse> GetPrinterstatusById(int id)
         {
-            throw new NotImplementedException();
+            var printerstatus = await _context.Printerstatuses.Where(x => x.Id == id).Select(x => new PrinterstatusResponse()
+            {
+                Name = x.Name,
+            }).FirstOrDefaultAsync();
+
+            return printerstatus;
         }
 
-        public Task UpdatePrinterstatus(int id, PrinterstatusRequest request)
+        public async Task UpdatePrinterstatus(int id, PrinterstatusRequest request)
         {
-            throw new NotImplementedException();
+            var printerstatus = await _context.Printerstatuses.FindAsync(id);
+
+            printerstatus.Name = request.Name;
+
+            _context.Printerstatuses.Update(printerstatus);
+            await _context.SaveChangesAsync();
         }
     }
 }
