@@ -47,22 +47,6 @@ namespace WebAPI_Practice.Services.Printer
 
         public async Task<List<PrinterJoinedResponse>> GetAllPrinters()
         {
-            /*var printers = await _context.Printers.Select(x => new PrinterResponse()
-            {
-                Id = x.Id,
-                InventaryNumber = x.InventaryNumber,
-                SerialNumber = x.SerialNumber,
-                ActivationDate = x.ActivationDate,
-                Price = x.Price,
-                PropertyType = x.PropertyType,
-                PrinterImageUri = x.PrinterImageUri,
-                Room = x.Room,
-                OfficeResponse = x.Office.GetOfficeResponseFromDto(),
-                PrinterstatusResponse = x.Printerstatus.GetPrinterstatusResponseFromDto(),
-                PrintertypeResponse =  x.Printertype.GetPrintertypeResponseForPrinterFromDto()              
-            }).ToListAsync();
-            */
-
             var printers = await _context.Printers.Select(x => new Models.Printer()
             {
                 Id = x.Id,
@@ -106,60 +90,38 @@ namespace WebAPI_Practice.Services.Printer
                 Name = x.Name,
             }).ToListAsync();
 
-            var joinedList = from pr in printers
-                             join pt in printertypes
-                             on pr.PrintertypeId equals pt.Id
-                             join of in offices
-                             on pr.OfficeId equals of.Id
-                             join mf in manufacturers
-                             on pt.ManufacturerId equals mf.Id
-                             join ft in functiontypes
-                             on pt.FunctiontypeId equals ft.Id
-                             select new
-                             {
-                                 Id = pr.Id,
-                                 InventaryNumber = pr.InventaryNumber,
-                                 SerialNumber = pr.SerialNumber,
-                                 ActivationDate = pr.ActivationDate,
-                                 Price = pr.Price,
-                                 PropertyType = pr.PropertyType,
-                                 PrinterImageUri = pr.PrinterImageUri,
-                                 Room = pr.Room,
-                                 ManufacturerName = mf.Name,
-                                 ModelName = pt.ModelName,
-                                 FunctiontypeName = ft.Name,
-                                 OfficeCode = of.Code,
-                                 OfficeString = $"{of.City} {of.Street}",
-                             };
+            List<PrinterJoinedResponse> joinedList = (from pr in printers
+                                                      join pt in printertypes
+                                                      on pr.PrintertypeId equals pt.Id
+                                                      join of in offices
+                                                      on pr.OfficeId equals of.Id
+                                                      join mf in manufacturers
+                                                      on pt.ManufacturerId equals mf.Id
+                                                      join ft in functiontypes
+                                                      on pt.FunctiontypeId equals ft.Id
+                                                      select new PrinterJoinedResponse
+                                                      {
+                                                          Id = pr.Id,
+                                                          InventaryNumber = pr.InventaryNumber,
+                                                          SerialNumber = pr.SerialNumber,
+                                                          ActivationDate = pr.ActivationDate,
+                                                          Price = pr.Price,
+                                                          PropertyType = pr.PropertyType,
+                                                          PrinterImageUri = pr.PrinterImageUri,
+                                                          Room = pr.Room,
+                                                          ManufacturerName = mf.Name,
+                                                          ModelName = pt.ModelName,
+                                                          FunctiontypeName = ft.Name,
+                                                          OfficeCode = of.Code,
+                                                          OfficeString = $"{of.City} {of.Street}",
+                                                      }).ToList();
 
-            List<PrinterJoinedResponse> joinedResultList = new List<PrinterJoinedResponse>();
-            foreach (var printer in joinedList)
-            {
-                PrinterJoinedResponse response = new PrinterJoinedResponse() 
-                {
-                    Id = printer.Id,
-                    InventaryNumber = printer.InventaryNumber,
-                    SerialNumber = printer.SerialNumber,
-                    ActivationDate = printer.ActivationDate,
-                    Price = printer.Price,
-                    PropertyType = printer.PropertyType,
-                    PrinterImageUri = printer.PrinterImageUri,
-                    Room = printer.Room,
-                    ManufacturerName = printer.ManufacturerName,
-                    ModelName = printer.ModelName,
-                    FunctiontypeName = printer.FunctiontypeName,
-                    OfficeCode = printer.OfficeCode,
-                    OfficeString = printer.OfficeString,
-                };
-                joinedResultList.Add(response);
-            }
-
-            return joinedResultList;
+            return joinedList;
         }
 
-        public async Task<PrinterResponse> GetPrinterById(int id)
+        public async Task<PrinterJoinedResponse> GetPrinterById(int id)
         {
-            var printer = await _context.Printers.Where(x => x.Id == id).Select(x => new PrinterResponse()
+            var printers = await _context.Printers.Select(x => new Models.Printer()
             {
                 Id = x.Id,
                 InventaryNumber = x.InventaryNumber,
@@ -169,13 +131,66 @@ namespace WebAPI_Practice.Services.Printer
                 PropertyType = x.PropertyType,
                 PrinterImageUri = x.PrinterImageUri,
                 Room = x.Room,
-                OfficeResponse = x.Office.GetOfficeResponseFromDto(),
-                PrinterstatusResponse = x.Printerstatus.GetPrinterstatusResponseFromDto(),
-                PrintertypeResponse = x.Printertype.GetPrintertypeResponseForPrinterFromDto()
-            }).FirstOrDefaultAsync();
+                OfficeId = x.OfficeId,
+                PrinterstatusId = x.PrinterstatusId,
+                PrintertypeId = x.PrintertypeId
+            }).ToListAsync();
 
-            return printer;
-            
+            var printertypes = await _context.Printertypes.Select(x => new Models.Printertype()
+            {
+                Id = x.Id,
+                ModelName = x.ModelName,
+                ManufacturerId = x.ManufacturerId,
+                FunctiontypeId = x.FunctiontypeId
+            }).ToListAsync();
+
+            var offices = await _context.Offices.Select(x => new Models.Office()
+            {
+                Id = x.Id,
+                Code = x.Code,
+                City = x.City,
+                Street = x.Street
+            }).ToListAsync();
+
+            var manufacturers = await _context.Manufacturers.Select(x => new Models.Manufacturer()
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToListAsync();
+
+            var functiontypes = await _context.Functiontypes.Select(x => new Models.Functiontype()
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToListAsync();
+
+            PrinterJoinedResponse joinedPrinter = (from pr in printers
+                                                   join pt in printertypes
+                                                   on pr.PrintertypeId equals pt.Id
+                                                    join of in offices
+                                                    on pr.OfficeId equals of.Id
+                                                    join mf in manufacturers
+                                                    on pt.ManufacturerId equals mf.Id
+                                                    join ft in functiontypes
+                                                    on pt.FunctiontypeId equals ft.Id
+                                                    where pr.Id == id
+                                                    select new PrinterJoinedResponse
+                                                    {
+                                                        Id = pr.Id,
+                                                        InventaryNumber = pr.InventaryNumber,
+                                                        SerialNumber = pr.SerialNumber,
+                                                        ActivationDate = pr.ActivationDate,
+                                                        Price = pr.Price,
+                                                        PropertyType = pr.PropertyType,
+                                                        PrinterImageUri = pr.PrinterImageUri,
+                                                        Room = pr.Room,
+                                                        ManufacturerName = mf.Name,
+                                                        ModelName = pt.ModelName,
+                                                        FunctiontypeName = ft.Name,
+                                                        OfficeCode = of.Code,
+                                                        OfficeString = $"{of.City} {of.Street}",
+                                                    }).First();
+            return joinedPrinter;
         }
 
         public async Task UpdatePrinter(int id, PrinterRequest request)
